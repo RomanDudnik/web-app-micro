@@ -6,7 +6,7 @@
     <link th:href="@{/styles/main.css}" rel="stylesheet">
 </head>
 <body>
-<a th:href="@{/catalogue/products/create}">&larr; + Добавить новый товар</a>
+<a th:href="@{/catalog/products/create}">&larr; + Добавить новый товар</a>
 <h1>Список товаров</h1>
 <table>
     <thead>
@@ -19,7 +19,7 @@
     <tr th:each="product : ${products}">
         <td th:text="${product.id}"></td>
         <td>
-            <a th:href="@{/catalogue/products/{productId}(productId=${product.id})}"
+            <a th:href="@{/catal/products/{productId}(productId=${product.id})}"
                th:text="${product.name}"></a>
         </td>
     </tr>

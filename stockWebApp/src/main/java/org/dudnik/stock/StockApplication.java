@@ -4,7 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Приложения для регистрации товаров на складе
+ * Приложение для регистрации товаров на складе
  */
 
 @SpringBootApplication

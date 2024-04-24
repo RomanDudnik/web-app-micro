@@ -10,10 +10,10 @@ import jakarta.validation.constraints.Size;
 
 public record UpdateProductPayload(
 
-        @NotNull (message = "{catalogue.products.update.errors.name_is_null}")
-        @Size(min = 3, max = 50, message = "{catalogue.products.update.errors.name_size_is_invalid}")
+        @NotNull (message = "{catalog.products.update.errors.name_is_null}")
+        @Size(min = 3, max = 50, message = "{catalog.products.update.errors.name_size_is_invalid}")
         String name,
 
-        @Size(max = 500, message = "{catalogue.products.update.errors.description_size_is_invalid}")
+        @Size(max = 500, message = "{catalog.products.update.errors.description_size_is_invalid}")
         String description){
 }

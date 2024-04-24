@@ -23,7 +23,7 @@ import java.util.NoSuchElementException;
  */
 
 @Controller
-@RequestMapping("catalogue/products/{productId:\\d+}")   // конструктор с аргументами для final свойств
+@RequestMapping("catalog/products/{productId:\\d+}")   // конструктор с аргументами для final свойств
 @RequiredArgsConstructor
 public class ProductController {
 
@@ -38,19 +38,19 @@ public class ProductController {
     @ModelAttribute("product")
     public Product product(@PathVariable("productId") int productId) {
         return this.productService.findProduct(productId)
-                .orElseThrow(() -> new NoSuchElementException("catalogue.errors.product.not_found"));
+                .orElseThrow(() -> new NoSuchElementException("catalog.errors.product.not_found"));
     }
 
     // создание страницы товара
     @GetMapping
     public String getProduct() {
-        return "catalogue/products/product";
+        return "catalog/products/product";
     }
 
     // редактирование страницы товара
     @GetMapping("edit")
     public String getEditProductPage() {
-        return "catalogue/products/edit";
+        return "catalog/products/edit";
     }
 
     // форма сохранения изменений
@@ -66,10 +66,10 @@ public class ProductController {
                     .toList());
             // перенаправление на страницу создания нового товара
             // в случае ошибок (рендеринг формы заново с указанием ошибок)
-            return "catalogue/products/edit";
+            return "catalog/products/edit";
         } else {
             this.productService.updateProduct(product.getId(), payload.name(), payload.description());
-            return "redirect:/catalogue/products/%d".formatted(product.getId());
+            return "redirect:/catalog/products/%d".formatted(product.getId());
         }
 
     }
@@ -78,7 +78,7 @@ public class ProductController {
     @PostMapping("delete")
     public String deleteProduct(@ModelAttribute("product") Product product) {
         this.productService.deleteProduct(product.getId());
-        return "redirect:/catalogue/products/list";
+        return "redirect:/catalog/products/list";
     }
 
     // обработка ошибок при попытке получить несуществующий товар

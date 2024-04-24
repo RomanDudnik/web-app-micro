@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -19,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor        // конструктор с аргументами для final свойств
-@RequestMapping("catalogue/products")
+@RequestMapping("catalog/products")
 public class ProductsController {
 
     // внедрение зависимости - сервиса
@@ -29,13 +28,13 @@ public class ProductsController {
     @GetMapping("list")
     public String getProductsList(Model model) {
         model.addAttribute("products", this.productService.findAllProducts());
-        return "catalogue/products/list";
+        return "catalog/products/list";
     }
 
     // создание страницы нового товара
     @GetMapping("create")
     public String getNewProductPage() {
-        return "catalogue/products/new_product";
+        return "catalog/products/new_product";
     }
 
     // обработка формы создания нового товара
@@ -51,11 +50,11 @@ public class ProductsController {
                     .toList());
             // перенаправление на страницу создания нового товара
             // в случае ошибок (рендеринг формы заново с указанием ошибок)
-            return "catalogue/products/new_product";
+            return "catalog/products/new_product";
         } else {
             Product product = this.productService.createProduct(payload.name(), payload.description());
             // перенаправление на страницу созданного товара (после создания)
-            return "redirect:/catalogue/products/%d".formatted(product.getId());
+            return "redirect:/catalog/products/%d".formatted(product.getId());
         }
 
     }

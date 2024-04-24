@@ -6,15 +6,15 @@
     <link th:href="@{/styles/main.css}" rel="stylesheet">
 </head>
 <body>
-<a th:href="@{/catalogue/products/list}">&larr; Вернуться к списку товаров</a>
+<a th:href="@{/catalog/products/list}">&larr; Вернуться к списку товаров</a>
 <h1  th:text="${product.name}"></h1>
 <ul>
     <li><strong>ID</strong>: <span th:text="${product.id}"></span></li>
     <li><strong>Название</strong>: <span th:text="${product.name}"></span></li>
     <li><strong>Описание</strong>: <span th:text="${product.description}"></span></li>
 </ul>
-<a th:href="@{/catalogue/products/{productId}/edit(productId=${product.id})}">Редактировать</a>
-<form method="post" th:action="@{/catalogue/products/{productId}/delete(productId=${product.id})}">
+<a th:href="@{/catalog/products/{productId}/edit(productId=${product.id})}">Редактировать</a>
+<form method="post" th:action="@{/catalog/products/{productId}/delete(productId=${product.id})}">
     <button type="submit">Удалить</button>
 </form>
 </body>

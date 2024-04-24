@@ -6,7 +6,7 @@
     <link th:href="@{/styles/main.css}" rel="stylesheet">
 </head>
 <body>
-<a th:href="@{/catalogue/products/list}">&larr; Вернуться к списку товаров</a>
+<a th:href="@{/catalog/products/list}">&larr; Вернуться к списку товаров</a>
 <h1>Новый товар</h1>
 <div th:if="${errors}">
     <h2>Данные не корректны</h2>
@@ -14,7 +14,7 @@
         <li th:each="error: ${errors}" th:text="${error}"></li>
     </ul>
 </div>
-<form method="post" th:action="@{/catalogue/products/create}">
+<form method="post" th:action="@{/catalog/products/create}">
     <label>Название: <br>
     <input type="text" name="name" th:value="${payload?.name}"/>
     </label><br>
