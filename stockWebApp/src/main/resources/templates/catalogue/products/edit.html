@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование товара &laquo;[[${product.name}]]&raquo; &ndash; Склад в деле</title>
+    <link th:href="@{/styles/main.css}" rel="stylesheet">
+</head>
+<body>
+<a th:href="@{/catalogue/products/{productId}(productId=${product.id})}">&larr; Вернуться к товару</a>
+<h1>Редактирование товара &laquo;[[${product.name}]]&raquo;</h1>
+<div th:if="${errors}">
+    <h2>Данные не корректны</h2>
+    <ul>
+        <li th:each="error: ${errors}" th:text="${error}"></li>
+    </ul>
+</div>
+<form method="post" th:action="@{/catalogue/products/{productId}/edit(productId=${product.id})}">
+    <label>
+        Название: <br>
+        <input type="text" name="name" th:value="${payload != null ? payload.name : product.name}">
+    </label><br>
+    <label>
+        Описание: <br>
+        <textarea name="description" th:text="${payload != null ? payload.description : product.description}"></textarea>
+    </label><br>
+    <button type="submit">Сохранить</button>
+</form>
+</body>
+</html>

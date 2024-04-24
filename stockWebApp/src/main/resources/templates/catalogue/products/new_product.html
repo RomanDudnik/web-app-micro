@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Новый товар &ndash; Склад в деле</title>
+    <link th:href="@{/styles/main.css}" rel="stylesheet">
+</head>
+<body>
+<a th:href="@{/catalogue/products/list}">&larr; Вернуться к списку товаров</a>
+<h1>Новый товар</h1>
+<div th:if="${errors}">
+    <h2>Данные не корректны</h2>
+    <ul>
+        <li th:each="error: ${errors}" th:text="${error}"></li>
+    </ul>
+</div>
+<form method="post" th:action="@{/catalogue/products/create}">
+    <label>Название: <br>
+    <input type="text" name="name" th:value="${payload?.name}"/>
+    </label><br>
+    <label>Описание: <br>
+        <textarea name="description" th:text="${payload?.description}"></textarea>
+    </label><br>
+    <button type="submit">Сохранить</button>
+</form>
+</body>
+</html>
