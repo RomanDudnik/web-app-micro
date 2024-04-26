@@ -1,14 +1,14 @@
 package org.dudnik.stock.controller;
 
-import jakarta.validation.Valid;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.dudnik.stock.service.ProductsServiceClient;
 import org.dudnik.stock.controller.payload.NewProductPayload;
 import org.dudnik.stock.model.Product;
-import org.dudnik.stock.service.ProductService;
+import org.dudnik.stock.service.exceptions.BadRequestException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -17,17 +17,17 @@ import org.springframework.web.bind.annotation.*;
  */
 
 @Controller
-@RequiredArgsConstructor        // конструктор с аргументами для final свойств
+@RequiredArgsConstructor        // конструктор с параметрами для внедрения зависимостей(зависимость от service)
 @RequestMapping("catalog/products")
 public class ProductsController {
 
     // внедрение зависимости - сервиса
-    private final ProductService productService;
+    private final ProductsServiceClient productsServiceClient;
 
     // метод для получения списка товаров
     @GetMapping("list")
     public String getProductsList(Model model) {
-        model.addAttribute("products", this.productService.findAllProducts());
+        model.addAttribute("products", this.productsServiceClient.findAllProducts());
         return "catalog/products/list";
     }
 
@@ -39,24 +39,23 @@ public class ProductsController {
 
     // обработка формы создания нового товара
     @PostMapping("create")
-    public String createProduct(@Valid NewProductPayload payload,
-                                BindingResult bindingResult, Model model) {
-        // проверка валидации полей формы
-        // собираем все ошибки и передаем их в модель
-        if (bindingResult.hasErrors()) {
+    public String createProduct(NewProductPayload payload, Model model,
+                                HttpServletResponse response) {
+        try {
+            Product product = this.productsServiceClient.createProduct(payload.name(),
+                    payload.description());
+            // перенаправление на страницу созданного товара (после создания)
+            return "redirect:/catalog/products/%d".formatted(product.id());
+
+        } catch (BadRequestException exception) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            // проверка валидации полей формы
             model.addAttribute("payload", payload);
-            model.addAttribute("errors", bindingResult.getAllErrors().stream()
-                    .map(ObjectError::getDefaultMessage)
-                    .toList());
+            // собираем все ошибки и передаем их в модель
+            model.addAttribute("errors", exception.getErrors());
             // перенаправление на страницу создания нового товара
             // в случае ошибок (рендеринг формы заново с указанием ошибок)
             return "catalog/products/new_product";
-        } else {
-            Product product = this.productService.createProduct(payload.name(), payload.description());
-            // перенаправление на страницу созданного товара (после создания)
-            return "redirect:/catalog/products/%d".formatted(product.getId());
         }
-
     }
-
 }

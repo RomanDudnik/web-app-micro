@@ -11,7 +11,7 @@
 <table>
     <thead>
     <tr>
-        <th>#</th>
+        <th>№</th>
         <th>Товар</th>
     </tr>
     </thead>
@@ -19,7 +19,7 @@
     <tr th:each="product : ${products}">
         <td th:text="${product.id}"></td>
         <td>
-            <a th:href="@{/catal/products/{productId}(productId=${product.id})}"
+            <a th:href="@{/catalog/products/{productId}(productId=${product.id})}"
                th:text="${product.name}"></a>
         </td>
     </tr>

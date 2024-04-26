@@ -1,22 +1,14 @@
 package org.dudnik.stock.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
- * Модель данных
- * Товар
+ * Сущность "Товар"
+ * Со стороны сервиса управления товарами
+ * не требуется изменения содержимого класса
+ * поэтому воспользуемся record
+ * @param id
+ * @param name
+ * @param description
  */
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class Product {
-
-    private Integer id;
-
-    private String name;
-
-    private String description;
+public record Product(int id, String name, String description) {
 }

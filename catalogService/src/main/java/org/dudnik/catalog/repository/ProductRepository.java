@@ -1,6 +1,6 @@
-package org.dudnik.stock.repository;
+package org.dudnik.catalog.repository;
 
-import org.dudnik.stock.model.Product;
+import org.dudnik.catalog.model.Product;
 
 import java.util.List;
 import java.util.Optional;

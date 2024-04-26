@@ -1,6 +1,6 @@
-package org.dudnik.stock.repository;
+package org.dudnik.catalog.repository;
 
-import org.dudnik.stock.model.Product;
+import org.dudnik.catalog.model.Product;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -17,12 +17,12 @@ public class InMemoryProductRepository implements ProductRepository {
     // Для хранения данных в памяти, создадим список с товарами
     private final List<Product> products = Collections.synchronizedList(new ArrayList<>());
 
-    public InMemoryProductRepository() {
-        // Заполняем список данными для тестирования
-        IntStream.range(1, 4).forEach(i -> {
-            this.products.add(new Product(i, "Product " + i, "Description " + i));
-        });
-    }
+//    public InMemoryProductRepository() {
+//        // Заполняем список данными для тестирования
+//        IntStream.range(1, 4).forEach(i -> {
+//            this.products.add(new Product(i, "Product " + i, "Description " + i));
+//        });
+//    }
 
     // Реализация метода для возвращения списка с товарами
     @Override

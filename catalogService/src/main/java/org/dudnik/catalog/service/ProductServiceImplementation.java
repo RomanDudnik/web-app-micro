@@ -1,8 +1,8 @@
-package org.dudnik.stock.service;
+package org.dudnik.catalog.service;
 
 import lombok.RequiredArgsConstructor;
-import org.dudnik.stock.model.Product;
-import org.dudnik.stock.repository.ProductRepository;
+import org.dudnik.catalog.model.Product;
+import org.dudnik.catalog.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor            // конструктор с аргументами для final свойств
+@RequiredArgsConstructor            // конструктор с параметрами для внедрения зависимостей(зависимость от repository)
 public class ProductServiceImplementation implements ProductService {
 
     // внедрение зависимости - репозитория
@@ -36,8 +36,8 @@ public class ProductServiceImplementation implements ProductService {
 
     // реализация метода для обновления конкретного товара
     @Override
-    public void updateProduct(Integer productId, String name, String description) {
-        this.productRepository.findById(productId)
+    public void updateProduct(Integer id, String name, String description) {
+        this.productRepository.findById(id)
                 .ifPresentOrElse(product -> {
                     product.setName(name);
                     product.setDescription(description);

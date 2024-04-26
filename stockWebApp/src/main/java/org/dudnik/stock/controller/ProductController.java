@@ -1,17 +1,15 @@
 package org.dudnik.stock.controller;
 
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.dudnik.stock.service.ProductsServiceClient;
 import org.dudnik.stock.controller.payload.UpdateProductPayload;
 import org.dudnik.stock.model.Product;
-import org.dudnik.stock.service.ProductService;
+import org.dudnik.stock.service.exceptions.BadRequestException;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Locale;
@@ -23,12 +21,12 @@ import java.util.NoSuchElementException;
  */
 
 @Controller
-@RequestMapping("catalog/products/{productId:\\d+}")   // конструктор с аргументами для final свойств
-@RequiredArgsConstructor
+@RequiredArgsConstructor        // конструктор с параметрами для внедрения зависимостей(зависимость от service)
+@RequestMapping("catalog/products/{productId:\\d+}")
 public class ProductController {
 
     // внедрение зависимости - сервиса
-    private final ProductService productService;
+    private final ProductsServiceClient productsServiceClient;
 
     // внедрение зависимости - локализатора
     private final MessageSource messageSource;
@@ -37,7 +35,8 @@ public class ProductController {
     // для избежания дублирования кода в последующих методах
     @ModelAttribute("product")
     public Product product(@PathVariable("productId") int productId) {
-        return this.productService.findProduct(productId)
+        return this.productsServiceClient.findProduct(productId)
+                // если товар не найден, выбрасываем исключение
                 .orElseThrow(() -> new NoSuchElementException("catalog.errors.product.not_found"));
     }
 
@@ -55,21 +54,20 @@ public class ProductController {
 
     // форма сохранения изменений
     @PostMapping("edit")
-    public String updateProduct(@ModelAttribute(name = "product", binding = false) Product product, @Valid UpdateProductPayload payload,
-                                BindingResult bindingResult, Model model) {
-        // проверка валидации полей формы
-        // собираем все ошибки и передаем их в модель
-        if (bindingResult.hasErrors()) {
+    public String updateProduct(@ModelAttribute(name = "product", binding = false) Product product,
+                                UpdateProductPayload payload, Model model, HttpServletResponse response) {
+        try {
+            this.productsServiceClient.updateProduct(product.id(), payload.name(), payload.description());
+            return "redirect:/catalog/products/%d".formatted(product.id());
+        } catch (BadRequestException exception) {
+            response.setStatus(HttpStatus.BAD_REQUEST.value());
+            // проверка валидации полей формы
             model.addAttribute("payload", payload);
-            model.addAttribute("errors", bindingResult.getAllErrors().stream()
-                    .map(ObjectError::getDefaultMessage)
-                    .toList());
+            // собираем все ошибки и передаем их в модель
+            model.addAttribute("errors", exception.getErrors());
             // перенаправление на страницу создания нового товара
             // в случае ошибок (рендеринг формы заново с указанием ошибок)
             return "catalog/products/edit";
-        } else {
-            this.productService.updateProduct(product.getId(), payload.name(), payload.description());
-            return "redirect:/catalog/products/%d".formatted(product.getId());
         }
 
     }
@@ -77,12 +75,13 @@ public class ProductController {
     //форма для удаления товара
     @PostMapping("delete")
     public String deleteProduct(@ModelAttribute("product") Product product) {
-        this.productService.deleteProduct(product.getId());
+        this.productsServiceClient.deleteProduct(product.id());
         return "redirect:/catalog/products/list";
     }
 
     // обработка ошибок при попытке получить несуществующий товар
     // перенаправление на страницу с ошибкой
+    // сообщения на странице будут локализированы
     @ExceptionHandler(NoSuchElementException.class)
     public String handleNoSuchElementException(NoSuchElementException exception, Model model,
                                                HttpServletResponse response, Locale locale) {

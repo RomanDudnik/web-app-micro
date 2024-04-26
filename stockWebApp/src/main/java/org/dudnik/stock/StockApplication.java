@@ -4,7 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
- * Приложение для регистрации товаров на складе
+ * Приложение-клиент для регистрации товаров на складе
+ * управления товарами на складе
+ * связь с сервисом - каталог товаров
+ * возможность работы в браузере посредством шаблонов представлений
  */
 
 @SpringBootApplication

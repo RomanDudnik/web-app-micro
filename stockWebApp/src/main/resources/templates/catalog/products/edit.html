@@ -9,7 +9,7 @@
 <a th:href="@{/catalog/products/{productId}(productId=${product.id})}">&larr; Вернуться к товару</a>
 <h1>Редактирование товара &laquo;[[${product.name}]]&raquo;</h1>
 <div th:if="${errors}">
-    <h2>Данные не корректны</h2>
+    <h2>!-> Формат данных не корректен <-!</h2>
     <ul>
         <li th:each="error: ${errors}" th:text="${error}"></li>
     </ul>

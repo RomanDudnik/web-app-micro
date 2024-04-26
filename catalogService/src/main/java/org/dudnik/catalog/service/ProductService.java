@@ -1,6 +1,6 @@
-package org.dudnik.stock.service;
+package org.dudnik.catalog.service;
 
-import org.dudnik.stock.model.Product;
+import org.dudnik.catalog.model.Product;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,7 +11,7 @@ public interface ProductService {
 
     Optional<Product> findProduct(int productId);
 
-    void updateProduct(Integer productId, String name, String description);
+    void updateProduct(Integer id, String name, String description);
 
     void deleteProduct(Integer id);
 }
