@@ -30,8 +30,8 @@ public class ProductsRestController {
     private final ProductService productService;
 
     // метод для получения списка товаров
+    // для InMemoryProductRepository реализации
 //    @GetMapping
-//    // для InMemoryProductRepository реализации
 //    public List<Product> getProducts() {
 //        return this.productService.findAllProducts();
 //    }
