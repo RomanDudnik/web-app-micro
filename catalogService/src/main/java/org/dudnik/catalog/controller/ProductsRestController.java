@@ -30,9 +30,15 @@ public class ProductsRestController {
     private final ProductService productService;
 
     // метод для получения списка товаров
+//    @GetMapping
+//    // для InMemoryProductRepository реализации
+//    public List<Product> getProducts() {
+//        return this.productService.findAllProducts();
+//    }
+    // для JPA реализации
     @GetMapping
-    public List<Product> getProducts() {
-        return this.productService.findAllProducts();
+    public Iterable<Product> getProducts(@RequestParam(name = "filter", required = false) String filter) {
+        return this.productService.findAllProducts(filter);
     }
 
     // метод для добавления нового товара

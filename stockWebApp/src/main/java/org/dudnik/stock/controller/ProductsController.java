@@ -26,8 +26,9 @@ public class ProductsController {
 
     // метод для получения списка товаров
     @GetMapping("list")
-    public String getProductsList(Model model) {
-        model.addAttribute("products", this.productsServiceClient.findAllProducts());
+    public String getProductsList(Model model, @RequestParam(name = "filter", required = false) String filter) {
+        model.addAttribute("products", this.productsServiceClient.findAllProducts(filter));
+        model.addAttribute("filter", filter);
         return "catalog/products/list";
     }
 

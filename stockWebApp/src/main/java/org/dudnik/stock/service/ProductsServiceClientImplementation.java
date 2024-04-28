@@ -34,10 +34,10 @@ public class ProductsServiceClientImplementation implements ProductsServiceClien
     };
 
     @Override
-    public List<Product> findAllProducts() {
+    public List<Product> findAllProducts(String filter) {
         return this.restClient
                 .get()      // метод GET
-                .uri("/catalog-api/products") // формируем URI
+                .uri("/catalog-api/products?filter={filter}", filter) // формируем URI
                 .retrieve()     // получаем ответ
                 // нужен ответ в параметризированном виде (преобразование типизированных данных(список))
                 .body(PRODUCTS_TYPE_REF); // преобразование типизированных данных

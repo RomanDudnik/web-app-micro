@@ -1,2 +1,18 @@
+spring:
+#  datasource:
+#    url: jdbc:postgresql://localhost:5432/catalog
+#    username: catalog
+#    password: catalog
+#  flyway:
+#    schemas:
+#      - public
+#      - catalog
+    jpa:
+        show-sql: true
 server:
     port: 8081
+logging:
+    level:
+        sql: info
+
+#    docker run --name catalog-db -p 5432:5432 -e POSTGRES_DB=catalog -e POSTGRES_USER=catalog -e POSTGRES_PASSWORD=catalog postgres:16
