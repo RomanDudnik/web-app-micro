@@ -22,7 +22,7 @@ import java.io.IOException;
  */
 
 @RequiredArgsConstructor
-public class OAuthClientRequestInterceptor implements ClientHttpRequestInterceptor {
+public class OAuthClientHttpRequestInterceptor implements ClientHttpRequestInterceptor {
 
     /**
      * Получаем токен доступа для текущего пользователя
@@ -52,6 +52,7 @@ public class OAuthClientRequestInterceptor implements ClientHttpRequestIntercept
                             // получаем информацию о текущем пользователе (работа в контексте пользователя)
                             .principal(this.securityContextHolderStrategy.getContext().getAuthentication())
                             .build());
+            assert authorizedClient != null;
             request.getHeaders().setBearerAuth(authorizedClient.getAccessToken().getTokenValue());
         }
 

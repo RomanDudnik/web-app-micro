@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 
-import java.util.List;
+import java.security.Principal;
 import java.util.Map;
 
 /**
@@ -37,7 +37,8 @@ public class ProductsRestController {
 //    }
     // для JPA реализации
     @GetMapping
-    public Iterable<Product> getProducts(@RequestParam(name = "filter", required = false) String filter) {
+    public Iterable<Product> getProducts(@RequestParam(name = "filter", required = false) String filter,
+                                         Principal principal) {
         return this.productService.findAllProducts(filter);
     }
 

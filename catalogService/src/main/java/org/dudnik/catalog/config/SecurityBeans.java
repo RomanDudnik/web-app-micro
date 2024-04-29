@@ -27,9 +27,9 @@ public class SecurityBeans {
                         // запросы по настроенным Скоупам (keycloak)
                         .requestMatchers(HttpMethod.POST, "/catalog-api/products")
                         .hasAnyAuthority("SCOPE_edit_catalog")
-                        .requestMatchers(HttpMethod.PUT, "/catalog-api/products/{productId}\\d")
+                        .requestMatchers(HttpMethod.PUT, "/catalog-api/products/{productId:\\d}")
                         .hasAnyAuthority("SCOPE_edit_catalog")
-                        .requestMatchers(HttpMethod.DELETE, "/catalog-api/products/{productId}\\d")
+                        .requestMatchers(HttpMethod.DELETE, "/catalog-api/products/{productId:\\d}")
                         .hasAnyAuthority("SCOPE_edit_catalog")
                         // у всех пользователей доступен просмотр каталога
                         .requestMatchers(HttpMethod.GET)

@@ -6,7 +6,6 @@ import org.dudnik.catalog.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -29,7 +28,7 @@ public class ProductServiceImplementation implements ProductService {
         if (filter != null && !filter.isBlank()) {
             return this.productRepository.findAllByNameLikeIgnoreCase("%" + filter +"%");
         } else {
-            return productRepository.findAll();
+            return this.productRepository.findAll();
         }
     }
 

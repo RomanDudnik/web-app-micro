@@ -1,7 +1,7 @@
 services:
   catalog:
     uri: http://localhost:8081
-    registrationId: keycloak
+    registration-id: keycloak
 spring:
   security:
     oauth2:
@@ -13,7 +13,7 @@ spring:
         registration:
           keycloak:
             client-id: manager-app
-            client-secret: YVe9hvVOUF8IsEPwAvTOv6tfASA8yT1F
+            client-secret: 9aZJxk3boVkRn9XyYavT66coHx4d9oOd
             scope:
               - openid
               - view_catalog
@@ -24,4 +24,4 @@ spring:
 
 
 #  keycloak:
-#  docker run --name stock-keycloak -p8082:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin -v /config/keycloak/import:/opt/keycloak/data/import quay.io/keycloak/keycloak:latest start-dev --import-realm
+#  docker run --name stock-keycloak -p 8082:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin -v /config/keycloak/import:/opt/keycloak/data/import quay.io/keycloak/keycloak:latest start-dev --import-realm

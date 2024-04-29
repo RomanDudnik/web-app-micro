@@ -48,10 +48,12 @@ public class SecurityBeans {
 
     @Bean
     public OAuth2UserService<OidcUserRequest, OidcUser> oAuth2UserService() {
+        // создаем компонент для работы с OAuth2
         OidcUserService oidcUserService = new OidcUserService();
+        // возвращаем информацию о пользователе (lambda выражением)
         return userRequest -> {
             // получаем информацию о пользователе
-               OidcUser oidcUser = oidcUserService.loadUser(userRequest);
+            OidcUser oidcUser = oidcUserService.loadUser(userRequest);  // для запроса загружаем информацию о пользователе
                // получаем права пользователя
             // список ролей
             List<GrantedAuthority> authorities =
