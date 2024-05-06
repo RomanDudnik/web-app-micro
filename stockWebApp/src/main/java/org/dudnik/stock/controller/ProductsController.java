@@ -6,13 +6,11 @@ import org.dudnik.stock.service.ProductsServiceClient;
 import org.dudnik.stock.controller.payload.NewProductPayload;
 import org.dudnik.stock.model.Product;
 import org.dudnik.stock.service.exceptions.BadRequestException;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 
 /**
  * Контроллер для работы со списком товаров
@@ -20,7 +18,7 @@ import java.security.Principal;
  */
 
 @Controller
-@RequiredArgsConstructor        // конструктор с параметрами для внедрения зависимостей(зависимость от service)
+@RequiredArgsConstructor        // конструктор с параметрами для внедрения зависимостей final(зависимость от service)
 @RequestMapping("catalog/products")
 public class ProductsController {
 

@@ -16,13 +16,14 @@ import java.security.Principal;
 import java.util.Map;
 
 /**
- * REST контроллер для работы со списком товаров
+ * REST контроллер для работы со списком товаров(каталогом)
+ * Предоставляет методы для получения списка и добавления нового товара
  * Без форм представления
  * С возвращением данных в виде JSON
  */
 
 @RestController
-@RequiredArgsConstructor        // конструктор с параметрами для внедрения зависимостей(зависимость от service)
+@RequiredArgsConstructor        // конструктор с параметрами для внедрения зависимостей final(зависимость от service)
 @RequestMapping("catalog-api/products")
 public class ProductsRestController {
 
@@ -30,12 +31,6 @@ public class ProductsRestController {
     private final ProductService productService;
 
     // метод для получения списка товаров
-    // для InMemoryProductRepository реализации
-//    @GetMapping
-//    public List<Product> getProducts() {
-//        return this.productService.findAllProducts();
-//    }
-    // для JPA реализации
     @GetMapping
     public Iterable<Product> getProducts(@RequestParam(name = "filter", required = false) String filter,
                                          Principal principal) {

@@ -21,14 +21,14 @@ import java.util.NoSuchElementException;
  */
 
 @Controller
-@RequiredArgsConstructor        // конструктор с параметрами для внедрения зависимостей(зависимость от service)
+@RequiredArgsConstructor        // конструктор с параметрами для внедрения зависимостей final(зависимость от service)
 @RequestMapping("catalog/products/{productId:\\d+}")
 public class ProductController {
 
     // внедрение зависимости - сервиса
     private final ProductsServiceClient productsServiceClient;
 
-    // внедрение зависимости - локализатора
+    // внедрение зависимости - локализатора сообщений
     private final MessageSource messageSource;
 
     // метод для получения конкретного товара

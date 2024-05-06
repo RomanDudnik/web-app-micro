@@ -24,7 +24,9 @@ import java.util.stream.Stream;
  */
 @Configuration
 public class SecurityBeans {
-
+    /**
+     * Конфигурируем правила безопасности
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // возвращаем http сессию

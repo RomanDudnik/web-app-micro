@@ -9,6 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+/**
+ * Реализация сервиса каталога с использованием репозитория
+ * Взаимодействие с репозиторием происходит через реализацию методов
+ */
+
 @Service
 @RequiredArgsConstructor            // конструктор с параметрами для внедрения зависимостей(зависимость от repository)
 public class ProductServiceImplementation implements ProductService {
@@ -18,10 +23,6 @@ public class ProductServiceImplementation implements ProductService {
 
     // реализация метода для получения списка товаров
     @Override
-    // для InMemoryProductRepository
-//    public List<Product> findAllProducts() {
-//        return productRepository.findAll();
-//    }
     // для JPA ProductRepository
     public Iterable<Product> findAllProducts(String filter) {
         // добавляем проверку для фильтрации по названию
@@ -54,9 +55,6 @@ public class ProductServiceImplementation implements ProductService {
                 .ifPresentOrElse(product -> {
                     product.setName(name);
                     product.setDescription(description);
-//                    // при использовании JPA для обновления в базе данных
-//                    // без @Transactional применяем процедуру обновления:
-//                    this.productRepository.save(product);
                 }, () -> {
                     throw new NoSuchElementException();
                 });

@@ -72,7 +72,6 @@ public class ProductsServiceClientImplementation implements ProductsServiceClien
                     .body(Product.class));
             // выбрасываем исключение, если NotFound
         } catch (HttpClientErrorException.NotFound exception) {
-//            ProblemDetail problemDetail = exception.getResponseBodyAs(ProblemDetail.class);
             return Optional.empty();
         }
     }

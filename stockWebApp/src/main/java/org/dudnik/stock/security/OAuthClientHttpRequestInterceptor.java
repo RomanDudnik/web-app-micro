@@ -28,7 +28,7 @@ public class OAuthClientHttpRequestInterceptor implements ClientHttpRequestInter
      * Получаем токен доступа для текущего пользователя
      * И обращаемся к защищенному ресурсу catalog
      */
-
+    // из OAuth2AuthorizedClientManager будем получать токены доступа (из информации о текущем пользователе)
     private final OAuth2AuthorizedClientManager authorizedClientManager;
 
     // идентификатор регистрации OAuth, для получения ключей доступа
@@ -41,7 +41,8 @@ public class OAuthClientHttpRequestInterceptor implements ClientHttpRequestInter
 
 
     @Override
-    public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
+    public ClientHttpResponse intercept(HttpRequest request, byte[] body,
+                                        ClientHttpRequestExecution execution)
             throws IOException {
 
         // проверка заголовка и получение токена

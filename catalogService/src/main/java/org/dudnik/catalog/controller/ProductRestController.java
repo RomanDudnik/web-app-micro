@@ -18,12 +18,13 @@ import java.util.NoSuchElementException;
 
 /**
  * REST контроллер для работы с конкретными товарами
+ * Предоставляет методы для работы с конкретными товарами
  * Без форм представления
  * С возвращением данных в виде JSON
  */
 
 @RestController
-@RequiredArgsConstructor            // конструктор с параметрами для внедрения зависимостей(зависимость от service)
+@RequiredArgsConstructor            // конструктор с параметрами для внедрения зависимостей final(зависимость от service)
 @RequestMapping("catalog-api/products/{productId:\\d+}")
 public class ProductRestController {
 
@@ -34,7 +35,7 @@ public class ProductRestController {
     private final MessageSource messageSource;
 
     // для унификации логики внутренних методов в контроллере
-    // используем @ModelAttribute для получения конкретного объекта
+    // используем @ModelAttribute для получения конкретного объекта/его данных
     @ModelAttribute("product")
     public Product getProduct(@PathVariable("productId") int productId) {
         return this.productService.findProduct(productId)
