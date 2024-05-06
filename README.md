@@ -15,7 +15,7 @@
 #### БД по дефолту H2
 Этого хватает для тестирования приложения
 
-Для запуска:
+### Для запуска:
 ### PostgreSQL (при необходимости)
 БД catalogService
 
@@ -29,3 +29,21 @@ OAuth 2.0/OIDC-сервер для авторизации сервисов и а
 * docker run --name stock-keycloak -p8082:8080 -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin -v /config/keycloak/import:/opt/keycloak/data/import quay.io/keycloak/keycloak:latest start-dev --import-realm
 #### Конфиг Keycloak: 
 * config/keycloak/stock.json
+
+Технологический стек
+### В этом проекте были использованы следующие технологии:
+* Spring Framework
+* Spring Boot
+* Spring MVC
+* RestTemplate 
+* Lombok 
+* Hibernate 
+* Spring Security
+* Spring Boot oauth2-client
+* Spring Boot oauth2-resource-server
+* Spring Data JPA
+* H2 Database
+* PostgreSQL
+* Thymeleaf 
+* Validation
+* SpringValidation
