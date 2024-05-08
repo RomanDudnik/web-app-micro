@@ -19,7 +19,7 @@
 ### PostgreSQL (при необходимости)
 БД catalogService
 
-* Запуск в Docker:
+### Запуск в Docker:
 * docker run --name catalog-db -p 5432:5432 -e POSTGRES_DB=catalog -e POSTGRES_USER=catalog -e POSTGRES_PASSWORD=catalog postgres:16
 
 ### Keycloak
